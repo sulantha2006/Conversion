@@ -1,13 +1,13 @@
 function [ model, confMat ] = GenerateRUSBoostModel( X, Y )
 %GENERATERUSBOOSTMODEL Generate RUSBoost Model and display its performance
 %based on the parameters defined below. 
-    part = cvpartition(Y,'holdout',0.5);
+    part = cvpartition(Y,'holdout',0.4);
     istrain = training(part);
     istest = test(part);
     t = templateTree('MinLeafSize',10);
 
 
-    rusTree = fitensemble(X(istrain,:),Y(istrain),'RUSBoost',1000,t,...
+    rusTree = fitensemble(X(istrain,:),Y(istrain),'RUSBoost',300,t,...
         'LearnRate',0.1);
 
 %     figure;
