@@ -11,13 +11,8 @@ Y=table2array(ClassificationTable(:,2));
 
 X1 = X(:, find(pop==1));
 Y1 = Y;
-
-Fitness_mat = ones(1, 5);
-for idx = 1:length(Fitness_mat)
-    [model, confMat] = GenerateRUSBoostModel(X1, Y1);
-    Fitness_mat(idx) = 1-(confMat(1,1)+1.5*confMat(2,2))/250;
-end
-Fitness = mean(Fitness_mat);
+[model, Error] = GenerateRUSBoostModel(X1, Y1);
+Fitness = Error;
 
 end
 
