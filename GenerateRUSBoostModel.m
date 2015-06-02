@@ -1,7 +1,7 @@
 function [ model, Value ] = GenerateRUSBoostModel( X, Y )
 %GENERATERUSBOOSTMODEL Generate RUSBoost Model and display its performance
 %based on the parameters defined below. 
-    part = cvpartition(Y,'holdout',0.4);
+    part = cvpartition(Y,'holdout',0.3);
     istrain = training(part);
     istest = test(part);
     
