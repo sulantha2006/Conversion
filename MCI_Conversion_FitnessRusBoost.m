@@ -11,8 +11,13 @@ Y=table2array(ClassificationTable(:,2));
 
 X1 = X(:, find(pop==1));
 Y1 = Y;
-[model, Error] = GenerateRUSBoostModel(X1, Y1);
-Fitness = Error;
+ErrorMat = ones(1, 5); 
+for idx = 1:length(ErrorMat)
+    [model, Error] = GenerateRUSBoostModel(X1, Y1);
+    ErrorMat(idx) = 1 - (Error(1,1) + 2*Error(2,2))/300;
+end
+
+Fitness = mean(ErrorMat);
 
 end
 
