@@ -33,6 +33,7 @@ function [ model, Value ] = GenerateRUSBoostModel( X, Y )
   YFit1 = PosteriorProb1(:,2);
   tab = tabulate(Y);
   Value = bsxfun(@rdivide,confusionmat(Y,YFit1),tab(:,2))*100;
+  Value = confusionmat(Y, YFit1);
   model = rusTree1;
 end
 
