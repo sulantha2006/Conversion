@@ -1,16 +1,17 @@
-function [ Fitness ] = MCI_Conversion_FitnessRusBoost( pop )
+function [ Fitness ] = MCI_Conversion_FitnessRusBoost_CSF( pop )
 
 if sum(pop) < 1
     Fitness = 1;
     return
 end
-if ((length(pop)==19) && (sum(pop(4:8)) < 2 || sum(pop(11:14)) < 2 || sum(pop(15:19)) < 2))
+if ((length(pop)==8) && (sum(pop(4:8)) < 2))
     Fitness = 1;
     return
 end
 
+
 ClassificationTable = readtable('Classification_Table.csv');
-X=table2array(ClassificationTable(:,3:21));
+X=table2array(ClassificationTable(:,3:10));
 Y=table2array(ClassificationTable(:,2));
 
 X1 = X(:, find(pop==1));
@@ -19,4 +20,3 @@ Y1 = Y;
 Fitness = 1 - getFitnessFromConfusionMat(Error);
 
 end
-
