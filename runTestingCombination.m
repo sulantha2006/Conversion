@@ -2,8 +2,8 @@ t = templateTree('MinLeafSize', 10);
 ClassificationTable = readtable('Classification_Table.csv');
 X=table2array(ClassificationTable(:,3:21));
 Y=table2array(ClassificationTable(:,2));
-X1 = X(:,[1 : 19]);
-rus1 = fitensemble(X1, Y, 'RUSBoost', 250, t, 'LearnRate', 0.3, 'kFold', 10);
+X1 = X(:,[2,3,4,5,7,8,11,13,15,19]);
+rus1 = fitensemble(X1, Y, 'RUSBoost', 250, t, 'LearnRate', 0.3, 'kFold', 30, 'CategoricalPredictors', [1]);
 [value, score] = kfoldPredict(rus1);
 
 pos1 = double(bsxfun(@eq, score, max(score, [], 2)));
