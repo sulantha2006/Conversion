@@ -17,6 +17,5 @@ Y=table2array(ClassificationTable(:,2));
 X1 = X(:, find(pop==1));
 Y1 = Y;
 [model, Error] = GenerateRUSBoostModel(X1, Y1);
-Fitness = 1 - (Error(1,1) + 1.5*Error(2,2))/250;
-
+Fitness = 1 - getFitnessFromConfusionMat(Error);
 end

@@ -3,7 +3,7 @@ X=table2array(ClassificationTable(:,3:21));
 Y=table2array(ClassificationTable(:,2));
 
 X1 = X(:,1:10);
-X2 = X(:,10:19);
+X2 = X(:,1:19);
 
 t1 = templateTree('MinLeafSize',10);
 rusTree1 = fitensemble(X1, Y, 'RUSBoost', 500, t1, 'LearnRate', 0.1, 'kFold', 10);
