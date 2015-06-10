@@ -52,7 +52,7 @@ class RUSRandomForestClassifier:
             forestClassProb = numpy.dstack([forestClassProb, forest.predict_proba(X)]) if forestClassProb.size else forest.predict_proba(X)
         return numpy.mean(forestClassProb, axis=2)
 
-    def CVJungle(self, X, Y, method='stratified', k = 10):
+    def CVJungle(self, X, Y, method='stratified', k = 10, shuffle = False, print_v=False):
         n_samples = len(Y)
         n_classes = len(numpy.unique(Y))
         classArray = numpy.zeros(n_samples)
@@ -72,8 +72,9 @@ class RUSRandomForestClassifier:
             classArray[test_index] = predictedClass
 
             probArray[test_index,:] = self.predict_prob(X_test)
-            print(confusion_matrix(Y_test, predictedClass))
+            if print_v: print(confusion_matrix(Y_test, predictedClass))
 
         return classArray, probArray
 
-
+    def featureImportance(self):
+        pass
