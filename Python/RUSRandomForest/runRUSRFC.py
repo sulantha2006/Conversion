@@ -1,10 +1,6 @@
 __author__ = 'Sulantha'
-import numpy as np
 import pandas as pd
-import scipy as sp
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.cross_validation import cross_val_predict, StratifiedKFold
-import seaborn as sns
+
 from matplotlib import pyplot as plt
 from sklearn.metrics import roc_curve, auc, confusion_matrix
 from Python.RUSRandomForest import RUSRandomForestClassifier
