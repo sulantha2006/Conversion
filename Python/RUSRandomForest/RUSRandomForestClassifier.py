@@ -52,6 +52,12 @@ class RUSRandomForestClassifier:
             forestClassProb = numpy.dstack([forestClassProb, forest.predict_proba(X)]) if forestClassProb.size else forest.predict_proba(X)
         return numpy.mean(forestClassProb, axis=2)
 
+    def featureImpotance(self):
+        feat_imp = numpy.array([])
+        for forest in self.__jungle:
+            feat_imp = numpy.vstack([feat_imp, forest.feature_importances_]) if feat_imp.size else forest.feature_importances_
+        return numpy.mean(feat_imp, axis=0)
+
     def CVJungle(self, X, Y, method='stratified', k = 10, shuffle = False, print_v=False):
         n_samples = len(Y)
         n_classes = len(numpy.unique(Y))
@@ -61,7 +67,7 @@ class RUSRandomForestClassifier:
             kf = cross_validation.KFold(len(Y), n_folds=k, shuffle=shuffle)
         elif method == 'stratified':
             kf = cross_validation.StratifiedKFold(Y, n_folds=k, shuffle=shuffle)
-
+        featureImpArray = numpy.array([])
         for train_index, test_index in kf:
             X_train, X_test = X[train_index], X[test_index]
             Y_train, Y_test = Y[train_index], Y[test_index]
@@ -73,8 +79,6 @@ class RUSRandomForestClassifier:
 
             probArray[test_index,:] = self.predict_prob(X_test)
             if print_v: print(confusion_matrix(Y_test, predictedClass))
+            featureImpArray = numpy.vstack([featureImpArray, self.featureImpotance()]) if featureImpArray.size else self.featureImpotance()
 
-        return classArray, probArray
-
-    def featureImportance(self):
-        pass
+        return classArray, probArray, numpy.mean(featureImpArray, axis=0)

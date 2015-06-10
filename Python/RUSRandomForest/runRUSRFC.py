@@ -12,10 +12,11 @@ mci_df = mci_df.drop('Conversion', axis=1)
 X = mci_df.as_matrix()
 
 RUSRFC = RUSRandomForestClassifier.RUSRandomForestClassifier()
-predClasses, classProb = RUSRFC.CVJungle(X, Y, shuffle=True, print_v=True)
+predClasses, classProb, featureImp = RUSRFC.CVJungle(X, Y, k=2, shuffle=True, print_v=True)
 cm = confusion_matrix(Y, predClasses)
 print('Final Accuracy')
 print(cm)
+print(featureImp)
 
 false_positive_rate_1, true_positive_rate_1, thresholds_1 = roc_curve(Y, classProb[:,1])
 roc_auc_1 = auc(false_positive_rate_1, true_positive_rate_1)
