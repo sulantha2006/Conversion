@@ -4,24 +4,25 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn import cross_validation
 from sklearn.metrics import confusion_matrix
 
+
 class RUSRandomForestClassifier:
     __n_Forests = None
     __n_TreesInForest = None
     __jungle = []
 
-    def __init__(self, n_Forests = 100, n_TreesInForest = 200):
+    def __init__(self, n_Forests=100, n_TreesInForest=200):
         self.__n_Forests = n_Forests
         self.__n_TreesInForest = n_TreesInForest
 
     def __rusData(self, X, Y):
-        classes, classIndexes, classCounts = numpy.unique(Y, return_inverse = True, return_counts = True)
+        classes, classIndexes, classCounts = numpy.unique(Y, return_inverse=True, return_counts=True)
         minCount = numpy.min(classCounts)
         rusX = numpy.array([])
         rusY = numpy.array([])
         for classIdx in range(len(classes)):
             classSampleIdx = numpy.random.choice(classCounts[classIdx], minCount, replace=False)
-            classSampleX = X[classIndexes==classIdx][classSampleIdx]
-            classSampleY = Y[classIndexes==classIdx][classSampleIdx]
+            classSampleX = X[classIndexes == classIdx][classSampleIdx]
+            classSampleY = Y[classIndexes == classIdx][classSampleIdx]
             rusX = numpy.vstack([rusX, classSampleX]) if rusX.size else classSampleX
             rusY = numpy.append([rusY], [classSampleY]) if rusY.size else classSampleY
         finalMixIdx = numpy.random.choice(len(rusY), len(rusY), replace=False)
@@ -30,7 +31,7 @@ class RUSRandomForestClassifier:
         return finalRUSX, finalRUSY
 
     def __trainForest(self, X, Y):
-        rf = RandomForestClassifier(n_estimators=self.__n_TreesInForest, n_jobs = -1, verbose = 0, class_weight = 'auto')
+        rf = RandomForestClassifier(n_estimators=self.__n_TreesInForest, n_jobs=-1, verbose=0, class_weight='auto')
         rfc = rf.fit(X, Y)
         return rfc
 
@@ -44,15 +45,16 @@ class RUSRandomForestClassifier:
         forestClass = numpy.array([])
         for forest in self.__jungle:
             forestClass = numpy.vstack([forestClass, forest.predict(X)]) if forestClass.size else forest.predict(X)
-        return 1*(numpy.mean(forestClass, axis=0)>0.5)
+        return 1 * (numpy.mean(forestClass, axis=0) > 0.5)
 
     def predict_prob(self, X):
         forestClassProb = numpy.array([])
         for forest in self.__jungle:
-            forestClassProb = numpy.dstack([forestClassProb, forest.predict_proba(X)]) if forestClassProb.size else forest.predict_proba(X)
+            forestClassProb = numpy.dstack(
+                [forestClassProb, forest.predict_proba(X)]) if forestClassProb.size else forest.predict_proba(X)
         return numpy.mean(forestClassProb, axis=2)
 
-    def CVJungle(self, X, Y, method='stratified', k = 10, shuffle = False, print_v=False):
+    def CVJungle(self, X, Y, method='stratified', k=10, shuffle=False, print_v=False):
         n_samples = len(Y)
         n_classes = len(numpy.unique(Y))
         classArray = numpy.zeros(n_samples)
@@ -71,7 +73,7 @@ class RUSRandomForestClassifier:
             predictedClass = self.predict(X_test)
             classArray[test_index] = predictedClass
 
-            probArray[test_index,:] = self.predict_prob(X_test)
+            probArray[test_index, :] = self.predict_prob(X_test)
             if print_v: print(confusion_matrix(Y_test, predictedClass))
 
         return classArray, probArray
