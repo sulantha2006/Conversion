@@ -58,9 +58,9 @@ class RUSRandomForestClassifier:
         classArray = numpy.zeros(n_samples)
         probArray = numpy.zeros((n_samples, n_classes))
         if method == 'kFold':
-            kf = cross_validation.KFold(len(Y), n_folds=k)
+            kf = cross_validation.KFold(len(Y), n_folds=k, shuffle = shuffle)
         elif method == 'stratified':
-            kf = cross_validation.StratifiedKFold(Y, n_folds=k)
+            kf = cross_validation.StratifiedKFold(Y, n_folds=k, shuffle = shuffle)
 
         for train_index, test_index in kf:
             X_train, X_test = X[train_index], X[test_index]
