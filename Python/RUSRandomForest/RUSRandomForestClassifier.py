@@ -2,6 +2,7 @@ __author__ = 'Sulantha'
 import numpy
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import cross_validation
+from sklearn.metrics import confusion_matrix
 
 class RUSRandomForestClassifier:
     __n_Forests = None
@@ -51,12 +52,15 @@ class RUSRandomForestClassifier:
             forestClassProb = numpy.dstack([forestClassProb, forest.predict_proba(X)]) if forestClassProb.size else forest.predict_proba(X)
         return numpy.mean(forestClassProb, axis=2)
 
-    def CVJungle(self, X, Y, method='kFold', k = 10):
-        kf = cross_validation.KFold(len(Y), n_folds=k)
+    def CVJungle(self, X, Y, method='stratified', k = 10):
         n_samples = len(Y)
         n_classes = len(numpy.unique(Y))
         classArray = numpy.zeros(n_samples)
         probArray = numpy.zeros((n_samples, n_classes))
+        if method == 'kFold':
+            kf = cross_validation.KFold(len(Y), n_folds=k)
+        elif method == 'stratified':
+            kf = cross_validation.StratifiedKFold(Y, n_folds=k)
 
         for train_index, test_index in kf:
             X_train, X_test = X[train_index], X[test_index]
@@ -64,8 +68,11 @@ class RUSRandomForestClassifier:
 
             self.trainJungle(X_train, Y_train)
 
-            classArray[test_index] = self.predict(X_test)
+            predictedClass = self.predict(X_test)
+            classArray[test_index] = predictedClass
+
             probArray[test_index,:] = self.predict_prob(X_test)
+            print(confusion_matrix(Y_test, predictedClass))
 
         return classArray, probArray
 
