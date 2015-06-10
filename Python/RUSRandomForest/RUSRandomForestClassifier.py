@@ -48,8 +48,8 @@ class RUSRandomForestClassifier:
     def predict_prob(self, X):
         forestClassProb = numpy.array([])
         for forest in self.__jungle:
-            forestClassProb = numpy.vstack([forestClassProb, forest.predict_proba(X)]) if forestClassProb.size else forest.predict_proba(X)
-        return numpy.mean(forestClassProb, axis=0)
+            forestClassProb = numpy.dstack([forestClassProb, forest.predict_proba(X)]) if forestClassProb.size else forest.predict_proba(X)
+        return numpy.mean(forestClassProb, axis=2)
 
     def CVJungle(self, X, Y, method='kFold', k = 10):
         kf = cross_validation.KFold(len(Y), n_folds=k)
