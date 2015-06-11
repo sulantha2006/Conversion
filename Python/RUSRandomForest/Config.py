@@ -1,3 +1,3 @@
 __author__ = 'Sulantha'
 
-figOutputPath = '/home/sulantha/Classification/ROCs/'
+figOutputPath = '/home/sulantha/Desktop/Classification/ROCs/'
