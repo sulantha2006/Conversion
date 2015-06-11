@@ -53,11 +53,14 @@ class RUSRandomForestClassifier:
         return numpy.mean(forestClassProb, axis=2)
 
     def featureImpotance(self):
-        feat_imp = numpy.array([])
+        feat_imp_arr = numpy.array([])
+        std_arr = numpy.array([])
         for forest in self.__jungle:
-            feat_imp = numpy.vstack(
-                [feat_imp, forest.feature_importances_]) if feat_imp.size else forest.feature_importances_
-        return numpy.mean(feat_imp, axis=0)
+            feat_imp_arr = numpy.vstack(
+                [feat_imp_arr, forest.feature_importances_]) if feat_imp_arr.size else forest.feature_importances_
+            std = numpy.std([tree.feature_importances_ for tree in forest.estimators_], axis=0)
+            std_arr = numpy.vstack([std_arr, std]) if std_arr.size else std
+        return numpy.mean(feat_imp_arr, axis=0), numpy.mean(std_arr, axis=0)
 
     def CVJungle(self, X, Y, method='stratified', k=10, shuffle=False, print_v=False):
         n_samples = len(Y)
@@ -69,6 +72,7 @@ class RUSRandomForestClassifier:
         elif method == 'stratified':
             kf = cross_validation.StratifiedKFold(Y, n_folds=k, shuffle=shuffle)
         featureImpArray = numpy.array([])
+        featureImpStdArray = numpy.array([])
         for train_index, test_index in kf:
             X_train, X_test = X[train_index], X[test_index]
             Y_train, Y_test = Y[train_index], Y[test_index]
@@ -80,7 +84,10 @@ class RUSRandomForestClassifier:
 
             probArray[test_index, :] = self.predict_prob(X_test)
             if print_v: print(confusion_matrix(Y_test, predictedClass))
-            featureImpArray = numpy.vstack(
-                [featureImpArray, self.featureImpotance()]) if featureImpArray.size else self.featureImpotance()
 
-        return classArray, probArray, numpy.mean(featureImpArray, axis=0)
+            featureImpMean, featureImpSd = self.featureImpotance()
+            featureImpArray = numpy.vstack(
+                [featureImpArray, featureImpMean]) if featureImpArray.size else featureImpMean
+            featureImpStdArray = numpy.vstack([featureImpStdArray, featureImpSd]) if featureImpStdArray.size else featureImpSd
+
+        return classArray, probArray, numpy.mean(featureImpArray, axis=0), numpy.mean(featureImpStdArray, axis=0)

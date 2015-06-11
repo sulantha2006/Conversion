@@ -35,7 +35,7 @@ X_ALL = mci_df.as_matrix()
 
 print('CSF_ONLY')
 RUSRFC_CSF_ONLY = RUSRandomForestClassifier.RUSRandomForestClassifier()
-predClasses_CSF_ONLY, classProb_CSF_ONLY, featureImp_CSF_ONLY = RUSRFC_CSF_ONLY.CVJungle(X_CSF_ONLY, Y, shuffle=True, print_v=True)
+predClasses_CSF_ONLY, classProb_CSF_ONLY, featureImp_CSF_ONLY, featureImpSD_CSF_ONLY = RUSRFC_CSF_ONLY.CVJungle(X_CSF_ONLY, Y, shuffle=True, print_v=True)
 cm_CSF_ONLY = confusion_matrix(Y, predClasses_CSF_ONLY)
 print('Final Accuracy')
 print(cm_CSF_ONLY)
@@ -52,7 +52,7 @@ roc_auc_CSF_ONLY = auc(false_positive_rate_CSF_ONLY, true_positive_rate_CSF_ONLY
 
 print('AV45_ONLY')
 RUSRFC_AV45_ONLY = RUSRandomForestClassifier.RUSRandomForestClassifier()
-predClasses_AV45_ONLY, classProb_AV45_ONLY, featureImp_AV45_ONLY = RUSRFC_AV45_ONLY.CVJungle(X_AV45_ONLY, Y, shuffle=True, print_v=True)
+predClasses_AV45_ONLY, classProb_AV45_ONLY, featureImp_AV45_ONLY, featureImpSD_AV45_ONLY = RUSRFC_AV45_ONLY.CVJungle(X_AV45_ONLY, Y, shuffle=True, print_v=True)
 cm_AV45_ONLY = confusion_matrix(Y, predClasses_AV45_ONLY)
 print('Final Accuracy')
 print(cm_AV45_ONLY)
@@ -69,7 +69,7 @@ roc_auc_AV45_ONLY = auc(false_positive_rate_AV45_ONLY, true_positive_rate_AV45_O
 
 print('FDG_ONLY')
 RUSRFC_FDG_ONLY = RUSRandomForestClassifier.RUSRandomForestClassifier()
-predClasses_FDG_ONLY, classProb_FDG_ONLY, featureImp_FDG_ONLY = RUSRFC_FDG_ONLY.CVJungle(X_FDG_ONLY, Y, shuffle=True, print_v=True)
+predClasses_FDG_ONLY, classProb_FDG_ONLY, featureImp_FDG_ONLY, featureImpSD_FDG_ONLY = RUSRFC_FDG_ONLY.CVJungle(X_FDG_ONLY, Y, shuffle=True, print_v=True)
 cm_FDG_ONLY = confusion_matrix(Y, predClasses_FDG_ONLY)
 print('Final Accuracy')
 print(cm_FDG_ONLY)
@@ -86,7 +86,7 @@ roc_auc_FDG_ONLY = auc(false_positive_rate_FDG_ONLY, true_positive_rate_FDG_ONLY
 
 print('CSF_AV45')
 RUSRFC_CSF_AV45 = RUSRandomForestClassifier.RUSRandomForestClassifier()
-predClasses_CSF_AV45, classProb_CSF_AV45, featureImp_CSF_AV45 = RUSRFC_CSF_AV45.CVJungle(X_CSF_AV45, Y, shuffle=True, print_v=True)
+predClasses_CSF_AV45, classProb_CSF_AV45, featureImp_CSF_AV45, featureImpSD_CSF_AV45 = RUSRFC_CSF_AV45.CVJungle(X_CSF_AV45, Y, shuffle=True, print_v=True)
 cm_CSF_AV45 = confusion_matrix(Y, predClasses_CSF_AV45)
 print('Final Accuracy')
 print(cm_CSF_AV45)
@@ -103,7 +103,7 @@ roc_auc_CSF_AV45 = auc(false_positive_rate_CSF_AV45, true_positive_rate_CSF_AV45
 
 print('CSF_FDG')
 RUSRFC_CSF_FDG = RUSRandomForestClassifier.RUSRandomForestClassifier()
-predClasses_CSF_FDG, classProb_CSF_FDG, featureImp_CSF_FDG = RUSRFC_CSF_FDG.CVJungle(X_CSF_FDG, Y, shuffle=True, print_v=True)
+predClasses_CSF_FDG, classProb_CSF_FDG, featureImp_CSF_FDG, featureImpSD_CSF_FDG = RUSRFC_CSF_FDG.CVJungle(X_CSF_FDG, Y, shuffle=True, print_v=True)
 cm_CSF_FDG = confusion_matrix(Y, predClasses_CSF_FDG)
 print('Final Accuracy')
 print(cm_CSF_FDG)
@@ -120,7 +120,7 @@ roc_auc_CSF_FDG = auc(false_positive_rate_CSF_FDG, true_positive_rate_CSF_FDG)
 
 print('ALL')
 RUSRFC_ALL = RUSRandomForestClassifier.RUSRandomForestClassifier()
-predClasses_ALL, classProb_ALL, featureImp_ALL = RUSRFC_ALL.CVJungle(X_ALL, Y, shuffle=True, print_v=True)
+predClasses_ALL, classProb_ALL, featureImp_ALL, featureImpSD_ALL = RUSRFC_ALL.CVJungle(X_ALL, Y, shuffle=True, print_v=True)
 cm_ALL = confusion_matrix(Y, predClasses_ALL)
 print('Final Accuracy')
 print(cm_ALL)
