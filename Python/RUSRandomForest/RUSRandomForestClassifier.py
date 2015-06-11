@@ -6,13 +6,11 @@ from sklearn.metrics import confusion_matrix
 
 
 class RUSRandomForestClassifier:
-    __n_Forests = None
-    __n_TreesInForest = None
-    __jungle = []
 
     def __init__(self, n_Forests=100, n_TreesInForest=200):
         self.__n_Forests = n_Forests
         self.__n_TreesInForest = n_TreesInForest
+        self.__jungle = []
 
     def __rusData(self, X, Y):
         classes, classIndexes, classCounts = numpy.unique(Y, return_inverse=True, return_counts=True)
@@ -31,7 +29,7 @@ class RUSRandomForestClassifier:
         return finalRUSX, finalRUSY
 
     def __trainForest(self, X, Y):
-        rf = RandomForestClassifier(n_estimators=self.__n_TreesInForest, n_jobs=1, verbose=0, class_weight='auto')
+        rf = RandomForestClassifier(n_estimators=self.__n_TreesInForest, n_jobs=-1, verbose=0, class_weight='auto')
         rfc = rf.fit(X, Y)
         return rfc
 

@@ -45,8 +45,7 @@ cm_AV45_ONLY = confusion_matrix(Y, predClasses_AV45_ONLY)
 print('Final Accuracy')
 print(cm_AV45_ONLY)
 print(featureImp_AV45_ONLY)
-false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY, thresholds_AV45_ONLY = roc_curve(Y,
-                                                                                              classProb_AV45_ONLY[:, 1])
+false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY, thresholds_AV45_ONLY = roc_curve(Y, classProb_AV45_ONLY[:, 1])
 roc_auc_AV45_ONLY = auc(false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY)
 
 print('FDG_ONLY')
