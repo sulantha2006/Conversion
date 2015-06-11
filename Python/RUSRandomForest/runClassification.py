@@ -20,10 +20,6 @@ csf_av45_cols = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'A
 csf_fdg_cols = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA142', 'ABETA142_Pos',
                 'PTAU_AB142_Ratio', 'FDG_bl_Global_SUVR_NEW', 'FDG_region1', 'FDG_region2', 'FDG_region3',
                 'FDG_region4', 'FDG_region5']
-all_list = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA142', 'ABETA142_Pos',
-                 'PTAU_AB142_Ratio', 'AV45_bl_Global_SUVR_NEW', 'FDG_bl_Global_SUVR_NEW', 'AV45_region1', 'AV45_region2',
-                 'AV45_region3', 'AV45_region4', 'FDG_region1', 'FDG_region2', 'FDG_region3',
-                'FDG_region4', 'FDG_region5']
 
 X_CSF_ONLY = mci_df[csf_cols].as_matrix()
 X_AV45_ONLY = mci_df[av45_cols].as_matrix()
@@ -39,13 +35,6 @@ cm_CSF_ONLY = confusion_matrix(Y, predClasses_CSF_ONLY)
 print('Final Accuracy')
 print(cm_CSF_ONLY)
 print(featureImp_CSF_ONLY)
-featureImpScale_CSF_ONLY = [featureImp_CSF_ONLY[csf_cols.index(i)] if i in csf_cols else 0 for i in all_list]
-plt.figure()
-plt.title('Feature Importance CSF ONLY')
-plt.bar(range(len(all_list)), featureImpScale_CSF_ONLY, color='r', align='center', orientation='vertical')
-plt.xticks(range(len(all_list)), all_list)
-plt.xticks(rotation=70)
-plt.savefig('CSF_ONLY_FEATURE_IMP.png')
 false_positive_rate_CSF_ONLY, true_positive_rate_CSF_ONLY, thresholds_CSF_ONLY = roc_curve(Y, classProb_CSF_ONLY[:, 1])
 roc_auc_CSF_ONLY = auc(false_positive_rate_CSF_ONLY, true_positive_rate_CSF_ONLY)
 
@@ -56,14 +45,7 @@ cm_AV45_ONLY = confusion_matrix(Y, predClasses_AV45_ONLY)
 print('Final Accuracy')
 print(cm_AV45_ONLY)
 print(featureImp_AV45_ONLY)
-featureImpScale_AV45_ONLY = [featureImp_AV45_ONLY[av45_cols.index(i)] if i in av45_cols else 0 for i in all_list]
-plt.figure()
-plt.title('Feature Importance AV45 ONLY')
-plt.bar(range(len(all_list)), featureImpScale_AV45_ONLY, color='r', align='center', orientation='vertical')
-plt.xticks(range(len(all_list)), all_list)
-plt.xticks(rotation=70)
-plt.savefig('AV45_ONLY_FEATURE_IMP.png')
-false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY, thresholds_AV45_ONLY = roc_curve(Y,classProb_AV45_ONLY[:, 1])
+false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY, thresholds_AV45_ONLY = roc_curve(Y, classProb_AV45_ONLY[:, 1])
 roc_auc_AV45_ONLY = auc(false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY)
 
 print('FDG_ONLY')
@@ -73,13 +55,6 @@ cm_FDG_ONLY = confusion_matrix(Y, predClasses_FDG_ONLY)
 print('Final Accuracy')
 print(cm_FDG_ONLY)
 print(featureImp_FDG_ONLY)
-featureImpScale_FDG_ONLY = [featureImp_FDG_ONLY[fdg_cols.index(i)] if i in fdg_cols else 0 for i in all_list]
-plt.figure()
-plt.title('Feature Importance FDG ONLY')
-plt.bar(range(len(all_list)), featureImpScale_FDG_ONLY, color='r', align='center', orientation='vertical')
-plt.xticks(range(len(all_list)), all_list)
-plt.xticks(rotation=70)
-plt.savefig('FDG_ONLY_FEATURE_IMP.png')
 false_positive_rate_FDG_ONLY, true_positive_rate_FDG_ONLY, thresholds_FDG_ONLY = roc_curve(Y, classProb_FDG_ONLY[:, 1])
 roc_auc_FDG_ONLY = auc(false_positive_rate_FDG_ONLY, true_positive_rate_FDG_ONLY)
 
@@ -90,13 +65,6 @@ cm_CSF_AV45 = confusion_matrix(Y, predClasses_CSF_AV45)
 print('Final Accuracy')
 print(cm_CSF_AV45)
 print(featureImp_CSF_AV45)
-featureImpScale_CSF_AV45 = [featureImp_CSF_AV45[csf_av45_cols.index(i)] if i in csf_av45_cols else 0 for i in all_list]
-plt.figure()
-plt.title('Feature Importance CSF & AV45')
-plt.bar(range(len(all_list)), featureImpScale_CSF_AV45, color='r', align='center', orientation='vertical')
-plt.xticks(range(len(all_list)), all_list)
-plt.xticks(rotation=70)
-plt.savefig('CSF_AV45_FEATURE_IMP.png')
 false_positive_rate_CSF_AV45, true_positive_rate_CSF_AV45, thresholds_CSF_AV45 = roc_curve(Y, classProb_CSF_AV45[:, 1])
 roc_auc_CSF_AV45 = auc(false_positive_rate_CSF_AV45, true_positive_rate_CSF_AV45)
 
@@ -107,13 +75,6 @@ cm_CSF_FDG = confusion_matrix(Y, predClasses_CSF_FDG)
 print('Final Accuracy')
 print(cm_CSF_FDG)
 print(featureImp_CSF_FDG)
-featureImpScale_CSF_FDG = [featureImp_CSF_FDG[csf_fdg_cols.index(i)] if i in csf_fdg_cols else 0 for i in all_list]
-plt.figure()
-plt.title('Feature Importance CSF & FDG')
-plt.bar(range(len(all_list)), featureImpScale_CSF_FDG, color='r', align='center', orientation='vertical')
-plt.xticks(range(len(all_list)), all_list)
-plt.xticks(rotation=70)
-plt.savefig('CSF_FDG_FEATURE_IMP.png')
 false_positive_rate_CSF_FDG, true_positive_rate_CSF_FDG, thresholds_CSF_FDG = roc_curve(Y, classProb_CSF_FDG[:, 1])
 roc_auc_CSF_FDG = auc(false_positive_rate_CSF_FDG, true_positive_rate_CSF_FDG)
 
@@ -124,13 +85,6 @@ cm_ALL = confusion_matrix(Y, predClasses_ALL)
 print('Final Accuracy')
 print(cm_ALL)
 print(featureImp_ALL)
-featureImpScale_ALL = [featureImp_ALL[all_list.index(i)] if i in all_list else 0 for i in all_list]
-plt.figure()
-plt.title('Feature Importance ALL VARS')
-plt.bar(range(len(all_list)), featureImpScale_ALL, color='r', align='center', orientation='vertical')
-plt.xticks(range(len(all_list)), all_list)
-plt.xticks(rotation=70)
-plt.savefig('ALL_FEATURE_IMP.png')
 false_positive_rate_ALL, true_positive_rate_ALL, thresholds_ALL = roc_curve(Y, classProb_ALL[:, 1])
 roc_auc_ALL = auc(false_positive_rate_ALL, true_positive_rate_ALL)
 
