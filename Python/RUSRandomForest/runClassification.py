@@ -1,5 +1,6 @@
 __author__ = 'sulantha'
 import pandas as pd
+import numpy
 from matplotlib import pyplot as plt
 from sklearn.metrics import roc_curve, auc, confusion_matrix
 from Python.RUSRandomForest import RUSRandomForestClassifier
@@ -33,6 +34,10 @@ X_CSF_AV45 = mci_df[csf_av45_cols].as_matrix()
 X_CSF_FDG = mci_df[csf_fdg_cols].as_matrix()
 X_ALL = mci_df.as_matrix()
 
+def writeSensAndSpec(fpr, tpr, thresh, filename):
+    specificity = 1-fpr
+    numpy.savetxt(filename, numpy.hstack([tpr, specificity, thresh]), fmt='%.5f', delimiter=',')
+
 print('CSF_ONLY')
 RUSRFC_CSF_ONLY = RUSRandomForestClassifier.RUSRandomForestClassifier(n_Forests=200, n_TreesInForest=200)
 predClasses_CSF_ONLY, classProb_CSF_ONLY, featureImp_CSF_ONLY, featureImpSD_CSF_ONLY = RUSRFC_CSF_ONLY.CVJungle(X_CSF_ONLY, Y, shuffle=True, print_v=True)
@@ -50,6 +55,7 @@ plt.xticks(rotation=90)
 plt.tight_layout()
 plt.savefig(Config.figOutputPath+'CSF_ONLY_FEATURE_IMP.png')
 false_positive_rate_CSF_ONLY, true_positive_rate_CSF_ONLY, thresholds_CSF_ONLY = roc_curve(Y, classProb_CSF_ONLY[:, 1])
+writeSensAndSpec(false_positive_rate_CSF_ONLY, true_positive_rate_CSF_ONLY, thresholds_CSF_ONLY, Config.figOutputPath+'CSF_ONLY_SensSpec.out')
 roc_auc_CSF_ONLY = auc(false_positive_rate_CSF_ONLY, true_positive_rate_CSF_ONLY)
 
 print('AV45_ONLY')
@@ -69,6 +75,7 @@ plt.xticks(rotation=90)
 plt.tight_layout()
 plt.savefig(Config.figOutputPath+'AV45_ONLY_FEATURE_IMP.png')
 false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY, thresholds_AV45_ONLY = roc_curve(Y,classProb_AV45_ONLY[:, 1])
+writeSensAndSpec(false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY, thresholds_AV45_ONLY, Config.figOutputPath+'AV45_ONLY_SensSpec.out')
 roc_auc_AV45_ONLY = auc(false_positive_rate_AV45_ONLY, true_positive_rate_AV45_ONLY)
 
 print('FDG_ONLY')
@@ -88,6 +95,7 @@ plt.xticks(rotation=90)
 plt.tight_layout()
 plt.savefig(Config.figOutputPath+'FDG_ONLY_FEATURE_IMP.png')
 false_positive_rate_FDG_ONLY, true_positive_rate_FDG_ONLY, thresholds_FDG_ONLY = roc_curve(Y, classProb_FDG_ONLY[:, 1])
+writeSensAndSpec(false_positive_rate_FDG_ONLY, true_positive_rate_FDG_ONLY, thresholds_FDG_ONLY, Config.figOutputPath+'FDG_ONLY_SensSpec.out')
 roc_auc_FDG_ONLY = auc(false_positive_rate_FDG_ONLY, true_positive_rate_FDG_ONLY)
 
 print('CSF_AV45')
@@ -107,6 +115,7 @@ plt.xticks(rotation=90)
 plt.tight_layout()
 plt.savefig(Config.figOutputPath+'CSF_AV45_FEATURE_IMP.png')
 false_positive_rate_CSF_AV45, true_positive_rate_CSF_AV45, thresholds_CSF_AV45 = roc_curve(Y, classProb_CSF_AV45[:, 1])
+writeSensAndSpec(false_positive_rate_CSF_AV45, true_positive_rate_CSF_AV45, thresholds_CSF_AV45, Config.figOutputPath+'CSF_AV45_SensSpec.out')
 roc_auc_CSF_AV45 = auc(false_positive_rate_CSF_AV45, true_positive_rate_CSF_AV45)
 
 print('CSF_FDG')
@@ -126,6 +135,7 @@ plt.xticks(rotation=90)
 plt.tight_layout()
 plt.savefig(Config.figOutputPath+'CSF_FDG_FEATURE_IMP.png')
 false_positive_rate_CSF_FDG, true_positive_rate_CSF_FDG, thresholds_CSF_FDG = roc_curve(Y, classProb_CSF_FDG[:, 1])
+writeSensAndSpec(false_positive_rate_CSF_FDG, true_positive_rate_CSF_FDG, thresholds_CSF_FDG, Config.figOutputPath+'CSF_FDG_SensSpec.out')
 roc_auc_CSF_FDG = auc(false_positive_rate_CSF_FDG, true_positive_rate_CSF_FDG)
 
 print('ALL')
@@ -145,6 +155,7 @@ plt.xticks(rotation=90)
 plt.tight_layout()
 plt.savefig(Config.figOutputPath+'ALL_FEATURE_IMP.png')
 false_positive_rate_ALL, true_positive_rate_ALL, thresholds_ALL = roc_curve(Y, classProb_ALL[:, 1])
+writeSensAndSpec(false_positive_rate_ALL, true_positive_rate_ALL, thresholds_ALL, Config.figOutputPath+'ALL_SensSpec.out')
 roc_auc_ALL = auc(false_positive_rate_ALL, true_positive_rate_ALL)
 
 plt.figure()
