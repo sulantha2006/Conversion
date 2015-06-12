@@ -12,13 +12,19 @@ class RUSRandomForestClassifier:
         self.__n_TreesInForest = n_TreesInForest
         self.__jungle = []
 
-    def __rusData(self, X, Y):
+    def __rusData(self, X, Y, majorityMore=0.3):
         classes, classIndexes, classCounts = numpy.unique(Y, return_inverse=True, return_counts=True)
         minCount = numpy.min(classCounts)
         rusX = numpy.array([])
         rusY = numpy.array([])
         for classIdx in range(len(classes)):
-            classSampleIdx = numpy.random.choice(classCounts[classIdx], minCount, replace=False)
+            count = minCount+minCount*majorityMore
+            if classCounts[classIdx] > count:
+                classSampleIdx = numpy.random.choice(classCounts[classIdx], count, replace=False)
+            else:
+                possibleMaxCount = classCounts[classIdx]
+                classSampleIdx = numpy.random.choice(classCounts[classIdx], possibleMaxCount, replace=False)
+
             classSampleX = X[classIndexes == classIdx][classSampleIdx]
             classSampleY = Y[classIndexes == classIdx][classSampleIdx]
             rusX = numpy.vstack([rusX, classSampleX]) if rusX.size else classSampleX

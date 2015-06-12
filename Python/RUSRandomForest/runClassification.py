@@ -36,7 +36,7 @@ X_ALL = mci_df.as_matrix()
 
 def writeSensAndSpec(fpr, tpr, thresh, filename):
     specificity = 1-fpr
-    numpy.savetxt(filename, numpy.hstack([tpr, specificity, thresh]), fmt='%.5f', delimiter=',')
+    numpy.savetxt(filename, numpy.hstack([numpy.transpose(tpr), numpy.transpose(specificity), numpy.transpose(thresh)]), fmt='%.5f', delimiter=',')
 
 print('CSF_ONLY')
 RUSRFC_CSF_ONLY = RUSRandomForestClassifier.RUSRandomForestClassifier(n_Forests=200, n_TreesInForest=200)
