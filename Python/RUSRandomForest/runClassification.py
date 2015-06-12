@@ -49,7 +49,7 @@ featureImpScale_CSF_ONLY = [featureImp_CSF_ONLY[csf_cols.index(i)] if i in csf_c
 featureImpScaleSD_CSF_ONLY = [featureImpSD_CSF_ONLY[csf_cols.index(i)] if i in csf_cols else 0 for i in all_list]
 plt.figure()
 plt.title('Feature Importance CSF ONLY')
-plt.bar(range(len(all_list)), featureImpScale_CSF_ONLY, color='r', yerr=featureImpScaleSD_CSF_ONLY, align='center', orientation='vertical')
+plt.bar(range(len(all_list)), featureImpScale_CSF_ONLY, color='r', align='center', orientation='vertical')
 plt.xticks(range(len(all_list)), [Config.xticks_dict[tick] for tick in all_list])
 plt.xticks(rotation=90)
 plt.tight_layout()
@@ -69,7 +69,7 @@ featureImpScale_AV45_ONLY = [featureImp_AV45_ONLY[av45_cols.index(i)] if i in av
 featureImpScaleSD_AV45_ONLY = [featureImpSD_AV45_ONLY[csf_cols.index(i)] if i in csf_cols else 0 for i in all_list]
 plt.figure()
 plt.title('Feature Importance AV45 ONLY')
-plt.bar(range(len(all_list)), featureImpScale_AV45_ONLY, color='r', yerr=featureImpScaleSD_AV45_ONLY, align='center', orientation='vertical')
+plt.bar(range(len(all_list)), featureImpScale_AV45_ONLY, color='r', align='center', orientation='vertical')
 plt.xticks(range(len(all_list)), [Config.xticks_dict[tick] for tick in all_list])
 plt.xticks(rotation=90)
 plt.tight_layout()
@@ -89,7 +89,7 @@ featureImpScale_FDG_ONLY = [featureImp_FDG_ONLY[fdg_cols.index(i)] if i in fdg_c
 featureImpScaleSD_FDG_ONLY = [featureImpSD_FDG_ONLY[csf_cols.index(i)] if i in csf_cols else 0 for i in all_list]
 plt.figure()
 plt.title('Feature Importance FDG ONLY')
-plt.bar(range(len(all_list)), featureImpScale_FDG_ONLY, color='r', yerr=featureImpScaleSD_FDG_ONLY, align='center', orientation='vertical')
+plt.bar(range(len(all_list)), featureImpScale_FDG_ONLY, color='r', align='center', orientation='vertical')
 plt.xticks(range(len(all_list)), [Config.xticks_dict[tick] for tick in all_list])
 plt.xticks(rotation=90)
 plt.tight_layout()
@@ -109,7 +109,7 @@ featureImpScale_CSF_AV45 = [featureImp_CSF_AV45[csf_av45_cols.index(i)] if i in 
 featureImpScaleSD_CSF_AV45 = [featureImpSD_CSF_AV45[csf_cols.index(i)] if i in csf_cols else 0 for i in all_list]
 plt.figure()
 plt.title('Feature Importance CSF & AV45')
-plt.bar(range(len(all_list)), featureImpScale_CSF_AV45, color='r', yerr=featureImpScaleSD_CSF_AV45, align='center', orientation='vertical')
+plt.bar(range(len(all_list)), featureImpScale_CSF_AV45, color='r', align='center', orientation='vertical')
 plt.xticks(range(len(all_list)), [Config.xticks_dict[tick] for tick in all_list])
 plt.xticks(rotation=90)
 plt.tight_layout()
@@ -129,7 +129,7 @@ featureImpScale_CSF_FDG = [featureImp_CSF_FDG[csf_fdg_cols.index(i)] if i in csf
 featureImpScaleSD_CSF_FDG = [featureImp_CSF_FDG[csf_av45_cols.index(i)] if i in csf_av45_cols else 0 for i in all_list]
 plt.figure()
 plt.title('Feature Importance CSF & FDG')
-plt.bar(range(len(all_list)), featureImpScale_CSF_FDG, color='r', yerr=featureImpScaleSD_CSF_FDG, align='center', orientation='vertical')
+plt.bar(range(len(all_list)), featureImpScale_CSF_FDG, color='r', align='center', orientation='vertical')
 plt.xticks(range(len(all_list)), [Config.xticks_dict[tick] for tick in all_list])
 plt.xticks(rotation=90)
 plt.tight_layout()
@@ -149,7 +149,7 @@ featureImpScale_ALL = [featureImp_ALL[all_list.index(i)] if i in all_list else 0
 featureImpScaleSD_ALL = [featureImp_ALL[csf_fdg_cols.index(i)] if i in csf_fdg_cols else 0 for i in all_list]
 plt.figure()
 plt.title('Feature Importance ALL VARS')
-plt.bar(range(len(all_list)), featureImpScale_ALL, color='r', yerr=featureImpScaleSD_ALL, align='center', orientation='vertical')
+plt.bar(range(len(all_list)), featureImpScale_ALL, color='r', align='center', orientation='vertical')
 plt.xticks(range(len(all_list)), [Config.xticks_dict[tick] for tick in all_list])
 plt.xticks(rotation=90)
 plt.tight_layout()
