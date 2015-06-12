@@ -35,7 +35,7 @@ class RUSRandomForestClassifier:
         return finalRUSX, finalRUSY
 
     def __trainForest(self, X, Y):
-        rf = RandomForestClassifier(n_estimators=self.__n_TreesInForest, n_jobs=-1, verbose=0, class_weight='auto')
+        rf = RandomForestClassifier(n_estimators=self.__n_TreesInForest, n_jobs=2, verbose=0, class_weight='auto')
         rfc = rf.fit(X, Y)
         return rfc
 
