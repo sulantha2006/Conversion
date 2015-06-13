@@ -40,7 +40,8 @@ def doRUSRFC(analysisDict):
     writeSensAndSpec(false_positive_rate, true_positive_rate, thresholds,
                      Config.figOutputPath + analysisDict['specificitySensitivityFile'])
     roc_auc = auc(false_positive_rate, true_positive_rate)
-    return analysisDict['analysisName'], false_positive_rate, true_positive_rate, thresholds, roc_auc
+    r_dict = dict(analysisName=analysisDict['analysisName'], fpr=false_positive_rate, tpr=true_positive_rate, th=thresholds, auc=roc_auc)
+    return r_dict
 
 
 def main():
@@ -93,11 +94,12 @@ def main():
                      featureImpFileName='ALL_FEATURE_IMP.png', specificitySensitivityFile='ALL_SensSpec.csv')]
 
     pool = Pool(processes=6)
-    name, fpr, tpr, th, auc = pool.map(doRUSRFC, itemList)
-    FPRDict[name] = fpr
-    TPRDict[name] = tpr
-    ThreshDict[name] = th
-    AUCDict[name] = auc
+    results = pool.map(doRUSRFC, itemList)
+    for result in results:
+        FPRDict[result['analysisName']] = result['fpr']
+        TPRDict[result['analysisName']] = result['tpr']
+        ThreshDict[result['analysisName']] = result['th']
+        AUCDict[result['analysisName']] = result['auc']
 
     pool.close()
     pool.join()
@@ -121,7 +123,7 @@ def main():
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
     plt.title('ROC for MCI Converters')
-    plt.legend(loc="lower right")
+    plt.legend(loc="lower right", prop={'size':'small', 'family':'sans-serif'})
     plt.tight_layout()
     plt.savefig(Config.figOutputPath + 'full.png')
 
