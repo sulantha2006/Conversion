@@ -6,7 +6,6 @@ from Python.RUSRandomForest import Config
 import numpy
 
 def getOptimalOparatingPoint(fpr, tpr, th):
-    #distanceList = [math.sqrt(math.pow((fpr[i]), 2)+math.pow((tpr[i]-1), 2))for i in range(len(th))]
     distanceList = numpy.sqrt(numpy.power(fpr, 2) + numpy.power(tpr-1, 2))
     minIdx= numpy.argmin(distanceList)
     return tpr[minIdx], fpr[minIdx], th[minIdx]
