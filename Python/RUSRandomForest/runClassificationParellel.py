@@ -45,25 +45,25 @@ def doRUSRFC(analysisDict):
 
 
 def main():
-    mci_df = pd.read_csv('../../Classification_Table.csv', delimiter=',')
+    mci_df = pd.read_csv('../../Classification_Table_New.csv', delimiter=',')
     mci_df = mci_df.drop('ID', axis=1)
     Y = mci_df.Conversion.values
     mci_df = mci_df.drop('Conversion', axis=1)
 
     csf_cols = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA142', 'ABETA142_Pos',
-                'PTAU_AB142_Ratio']
+                'PTAU_AB142_Ratio', 'Total_TAU', 'TTAU_AB142_Ratio', 'PTAU_TTAU_Ratio']
     av45_cols = ['Age_bl', 'PTGENDER', 'APOE_bin', 'AV45_bl_Global_SUVR_NEW', 'AV45_region1', 'AV45_region2',
                  'AV45_region3', 'AV45_region4']
     fdg_cols = ['Age_bl', 'PTGENDER', 'APOE_bin', 'FDG_bl_Global_SUVR_NEW', 'FDG_region1', 'FDG_region2', 'FDG_region3',
                 'FDG_region4', 'FDG_region5']
     csf_av45_cols = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA142', 'ABETA142_Pos',
-                     'PTAU_AB142_Ratio', 'AV45_bl_Global_SUVR_NEW', 'AV45_region1', 'AV45_region2',
+                     'PTAU_AB142_Ratio', 'Total_TAU', 'TTAU_AB142_Ratio', 'PTAU_TTAU_Ratio', 'AV45_bl_Global_SUVR_NEW', 'AV45_region1', 'AV45_region2',
                      'AV45_region3', 'AV45_region4']
     csf_fdg_cols = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA142', 'ABETA142_Pos',
-                    'PTAU_AB142_Ratio', 'FDG_bl_Global_SUVR_NEW', 'FDG_region1', 'FDG_region2', 'FDG_region3',
+                    'PTAU_AB142_Ratio', 'Total_TAU', 'TTAU_AB142_Ratio', 'PTAU_TTAU_Ratio', 'FDG_bl_Global_SUVR_NEW', 'FDG_region1', 'FDG_region2', 'FDG_region3',
                     'FDG_region4', 'FDG_region5']
     all_list = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA142', 'ABETA142_Pos',
-                'PTAU_AB142_Ratio', 'AV45_bl_Global_SUVR_NEW', 'FDG_bl_Global_SUVR_NEW', 'AV45_region1', 'AV45_region2',
+                'PTAU_AB142_Ratio', 'Total_TAU', 'TTAU_AB142_Ratio', 'PTAU_TTAU_Ratio', 'AV45_bl_Global_SUVR_NEW', 'FDG_bl_Global_SUVR_NEW', 'AV45_region1', 'AV45_region2',
                 'AV45_region3', 'AV45_region4', 'FDG_region1', 'FDG_region2', 'FDG_region3',
                 'FDG_region4', 'FDG_region5']
 
