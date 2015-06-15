@@ -19,7 +19,7 @@ def plotROC(fpr, tpr, th, legend_title, plot_title, fileName):
     plt.ylim([-0.01, 1.01])
     optY, optX, optTH = getOptimalOparatingPoint(fpr, tpr, th)
     plt.plot(optX, optY, 'o')
-    plt.annotate('Sen : {0}, Spec: {1}, Th: {2}'.format(optY, 1-optX, optTH), xy=(optX, optY), xytext=(0.25, 0.75), arrowprops=dict(arrowstyle="->"), connectionstyle="angle3,angleA=0,angleB=-90")
+    plt.annotate('Sen : {0}\nSpec: {1}\nTh: {2}'.format(optY, 1-optX, optTH), annotation_clip=dict(size='small'), xy=(optX, optY), xytext=(0.25, 0.75), arrowprops=dict(arrowstyle='fancy', fc='0.6', ec='none', shrinkB=5, connectionstyle="angle3,angleA=0,angleB=-45"))
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
     plt.title(plot_title)
@@ -28,8 +28,8 @@ def plotROC(fpr, tpr, th, legend_title, plot_title, fileName):
     plt.savefig(Config.figOutputPath + fileName)
 
 if __name__ == '__main__':
-    data = numpy.loadtxt(Config.figOutputPath+'CSF_ONLY_SensSpec.csv')
-    tpr = data[:,0]
-    fpr = 1-data[:,1]
-    th = data[:,2]
+    data = numpy.loadtxt(Config.figOutputPath+'CSF_ONLY_SensSpec.csv', delimiter=',')
+    tpr = data[:, 1]
+    fpr = 1-data[:, 0]
+    th = data[:, 2]
     plotROC(fpr, tpr, th, 'CSF ONLY', 'ROC for MCI Converters (CSF)', 'CSF_ONLY_ROC.png')
