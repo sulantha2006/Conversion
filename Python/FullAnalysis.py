@@ -20,15 +20,3 @@ validated = cross_val_predict(rf, X, Y, cv=cv)
 false_positive_rate, true_positive_rate, thresholds = roc_curve(Y, validated)
 cm = confusion_matrix(Y, validated)
 print(cm)
-# scores = []
-# for val in range(495, 500):
-#     rf = RandomForestClassifier(n_estimators=val, n_jobs = -1, verbose = 1, class_weight = 'auto', max_features = None, oob_score=True)
-#     cv = StratifiedKFold(Y, 10)
-#     validated = cross_val_score(rf, X, Y, cv=cv, scoring='f1')
-#     scores.append(validated)
-#
-# sns.boxplot(scores)
-# plt.xlabel('Number of Trees')
-# plt.ylabel('F1 Score')
-# plt.title('# of Trees vs F1 Score')
-# plt.savefig('foo.png')

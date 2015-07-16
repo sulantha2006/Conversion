@@ -3,6 +3,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn.metrics import roc_curve, auc, confusion_matrix
 from Python.RUSRandomForest import RUSRandomForestClassifier
+import pickle
 
 mci_df = pd.read_csv('../../Classification_Table.csv', delimiter=',')
 mci_df = mci_df.drop('ID', axis=1)
@@ -11,8 +12,16 @@ mci_df = mci_df.drop('Conversion', axis=1)
 X = mci_df.as_matrix()
 
 RUSRFC = RUSRandomForestClassifier.RUSRandomForestClassifier()
-predClasses, classProb, featureImp = RUSRFC.CVJungle(X, Y, k=2, shuffle=True, print_v=True)
+predClasses, classProb, featureImp, featureImpSD = RUSRFC.CVJungle(X, Y, k=2, shuffle=True, print_v=True)
+
+pickle.dump(RUSRFC, open('pickleTest.pkl', 'wb'))
+
+UNpickledRUS = pickle.load(open('pickleTest.pkl', 'rb'))
+
+
 cm = confusion_matrix(Y, predClasses)
+
+
 print('Final Accuracy')
 print(cm)
 print(featureImp)
