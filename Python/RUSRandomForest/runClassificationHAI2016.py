@@ -17,16 +17,16 @@ def writeSensAndSpec(fpr, tpr, thresh, filename):
 
 def doRUSRFC(analysisDict):
     print('{0} Started'.format(analysisDict['analysisName']))
-    RUSRFC = RUSRandomForestClassifier.RUSRandomForestClassifier(n_Forests=200, n_TreesInForest=500)
+    RUSRFC = RUSRandomForestClassifier.RUSRandomForestClassifier(n_Forests=100, n_TreesInForest=300)
     predClasses, classProb, featureImp, featureImpSD = RUSRFC.CVJungle(analysisDict['X_train'], analysisDict['Y_train'],
-                                                                       shuffle=True, print_v=True, k=5)
+                                                                       shuffle=True, print_v=True, k=10)
     cm = confusion_matrix(analysisDict['Y_train'], predClasses)
-    print('Analysis - {0} - {1}'.format(analysisDict['analysisName'], cm))
+    print('Analysis - {0}  - Validation - \n{1}'.format(analysisDict['analysisName'], cm))
 
     #### For test set
     predClasses_test = RUSRFC.predict(analysisDict['X_test'])
     cm_test = confusion_matrix(analysisDict['Y_test'], predClasses_test)
-    print('Test set results - {0}'.format(cm_test))
+    print('Test set results - \n{0}'.format(cm_test))
     ####
     #### For test set
     predClassesProb_test = RUSRFC.predict_prob(analysisDict['X_test'])
@@ -44,10 +44,12 @@ def doRUSRFC(analysisDict):
         analysisDict['all_list']]
 
     plt.figure()
-    plt.title('Feature Importance {0}'.format(analysisDict['analysisName']))
-    plt.bar(range(len(analysisDict['all_list'])), featureImpScale, color='r', align='center', orientation='vertical')
+    plt.title('Feature Importance')
+    plt.bar(range(len(analysisDict['all_list'])), featureImpScale, alpha=0.4, edgecolor="none", linewidth=0.0, color='g',
+            align='center', orientation='vertical', width=0.7)
     plt.xticks(range(len(analysisDict['all_list'])), [Config.xticks_dict[tick] for tick in analysisDict['all_list']])
-    plt.xticks(rotation=90)
+    plt.xticks(rotation=55, ha='right')
+    plt.yticks([])
     plt.tight_layout()
     plt.savefig(Config.figOutputPath + analysisDict['featureImpFileName'])
 
@@ -106,10 +108,10 @@ def main():
 
     plt.figure()
 
-    plt.plot(FPRDict['AV45_ONLY'], TPRDict['AV45_ONLY'], 'b',
-             label='ROC curve {0} (area = {1:0.2f})'.format('AV45', AUCDict['AV45_ONLY']))
-    plt.plot(FPRDict_Test['AV45_ONLY'], TPRDict_Test['AV45_ONLY'], 'r',
-             label='ROC curve {0} (area = {1:0.2f})'.format('AV45', AUCDict_Test['AV45_ONLY']))
+    plt.plot(FPRDict['AV45_ONLY'], TPRDict['AV45_ONLY'], 'b', alpha=0.5, lw = 2,
+             label='ROC curve  - Validation {0} (area = {1:0.2f})'.format('AV45', AUCDict['AV45_ONLY']))
+    plt.plot(FPRDict_Test['AV45_ONLY'], TPRDict_Test['AV45_ONLY'], 'r', alpha=0.5, lw = 2,
+             label='ROC curve - Test {0} (area = {1:0.2f})'.format('AV45', AUCDict_Test['AV45_ONLY']))
     plt.plot([0, 1], [0, 1], 'k--')
     plt.xlim([-0.01, 1.01])
     plt.ylim([-0.01, 1.01])

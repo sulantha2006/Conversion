@@ -1,6 +1,6 @@
 __author__ = 'Sulantha'
 
-figOutputPath = '/home/sulantha/Desktop/Classification/ROCs/'
+figOutputPath = '/data/data03/sulantha/MCI_Classification_HAI2016/Results/RFC/'
 
 all_list = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA142', 'ABETA142_Pos',
                 'PTAU_AB142_Ratio', 'Total_TAU', 'TTAU_AB142_Ratio', 'PTAU_TTAU_Ratio', 'AV45_bl_Global_SUVR_NEW', 'FDG_bl_Global_SUVR_NEW', 'AV45_region1', 'AV45_region2',
@@ -8,7 +8,10 @@ all_list = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA1
                 'FDG_region4', 'FDG_region5']
 xticks_dict = dict(Age_bl='Age',
                    PTGENDER='Gender',
+                   GENDER_Code='Gender',
                    APOE_bin='APOE',
+                   APOE_BIN='APOE',
+                   AGE_AV45_D1='Age',
                    PTAU181P_bl='CSF PTAU',
                    PTAU_Pos='CSF PTAU > 23',
                    ABETA142='CSF ABETA',
@@ -27,4 +30,6 @@ xticks_dict = dict(Age_bl='Age',
                    FDG_region2='FDG PCC',
                    FDG_region3='FDG OFC',
                    FDG_region4='FDG Piriform C.',
-                   FDG_region5='FDG Hippocampus')
+                   FDG_region5='FDG Hippocampus',
+                   AV45_SUVR_R1='Frontal Gyrus',AV45_SUVR_R2='Angular Gyrus',AV45_SUVR_R3='PCC',AV45_SUVR_R4='Frontal Cortex',AV45_SUVR_R5='Precuneus',
+                   AV45_SUVR_R6='Temp/Parietal',AV45_SUVR_R7='Temporal Lobe',AV45_SUVR_R8='Puteman',AV45_SUVR_R9='NA',AV45_GLOBAL_SUVR='AV45 Global SUVR')
