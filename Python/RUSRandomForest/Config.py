@@ -1,6 +1,6 @@
 __author__ = 'Sulantha'
 
-figOutputPath = '/data/data03/sulantha/MCI_Classification_HAI2016/Results/RFC/'
+figOutputPath = 'FIGOutput/RFC/'
 
 all_list = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA142', 'ABETA142_Pos',
                 'PTAU_AB142_Ratio', 'Total_TAU', 'TTAU_AB142_Ratio', 'PTAU_TTAU_Ratio', 'AV45_bl_Global_SUVR_NEW', 'FDG_bl_Global_SUVR_NEW', 'AV45_region1', 'AV45_region2',
@@ -9,10 +9,14 @@ all_list = ['Age_bl', 'PTGENDER', 'APOE_bin', 'PTAU181P_bl', 'PTAU_Pos', 'ABETA1
 xticks_dict = dict(Age_bl='Age',
                    PTGENDER='Gender',
                    GENDER_Code='Gender',
+                   GENDER_CODE='Gender',
                    APOE_bin='APOE',
                    APOE_BIN='APOE',
+                   APOE4_BIN='APOE',
                    AGE_AV45_D1='Age',
+                   AGE_D1='Age',
                    PTAU181P_bl='CSF PTAU',
+                   ABETA='ABETA', PTAU='PTAU', TAU='TTAU',
                    PTAU_Pos='CSF PTAU > 23',
                    ABETA142='CSF ABETA',
                    ABETA142_Pos='CSF ABETA > 192',
@@ -20,6 +24,9 @@ xticks_dict = dict(Age_bl='Age',
                    Total_TAU='Total TAU',
                    TTAU_AB142_Ratio='TTAU ABETA Ratio',
                    PTAU_TTAU_Ratio='PTAU TTAU Ratio',
+                   PTAU_TAU='PTAU TTAU Ratio',
+                   PTAU_ABETA='PTAU ABETA Ratio',
+                   TAU_ABETA='TTAU ABETA Ratio',
                    AV45_bl_Global_SUVR_NEW='AV45 Global SUVR',
                    FDG_bl_Global_SUVR_NEW='FDG Global SUVR',
                    AV45_region1='AV45 Sup. Tem. Gyrus',

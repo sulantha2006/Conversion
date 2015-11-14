@@ -17,7 +17,7 @@ def writeSensAndSpec(fpr, tpr, thresh, filename):
 
 def doRUSRFC(analysisDict):
     print('{0} Started'.format(analysisDict['analysisName']))
-    RUSRFC = RUSRandomForestClassifier.RUSRandomForestClassifier(n_Forests=100, n_TreesInForest=300)
+    RUSRFC = RUSRandomForestClassifier.RUSRandomForestClassifier(n_Forests=200, n_TreesInForest=300)
     predClasses, classProb, featureImp, featureImpSD = RUSRFC.CVJungle(analysisDict['X_train'], analysisDict['Y_train'],
                                                                        shuffle=True, print_v=True, k=10)
     cm = confusion_matrix(analysisDict['Y_train'], predClasses)
@@ -63,7 +63,7 @@ def doRUSRFC(analysisDict):
 
 
 def main():
-    mci_df = pd.read_csv('DataFiles/HAI_2016_AV45_ONLY_SET_1.csv', delimiter=',')
+    mci_df = pd.read_csv('DataFiles/CSF_ONLY/SET_1.csv', delimiter=',')
     mci_df_train = mci_df.loc[mci_df['SAMPLE'] == 1]
     mci_df_test = mci_df.loc[mci_df['SAMPLE'] == 2]
     #mci_df = mci_df.drop('ID', axis=1)
@@ -71,11 +71,11 @@ def main():
     Y_test = mci_df_test.CONV.values
     mci_df = mci_df.drop('CONV', axis=1)
 
-    av45_cols = ['AGE_AV45_D1', 'GENDER_Code', 'APOE_BIN', 'AV45_SUVR_R1', 'AV45_SUVR_R2', 'AV45_SUVR_R3', 'AV45_SUVR_R4', 'AV45_SUVR_R5'
-                 , 'AV45_SUVR_R6', 'AV45_SUVR_R7', 'AV45_SUVR_R8', 'AV45_SUVR_R9', 'AV45_GLOBAL_SUVR']
+    DATA_cols = ['AGE_D1', 'GENDER_CODE', 'APOE4_BIN', 'ABETA', 'PTAU', 'TAU', 'PTAU_TAU', 'PTAU_ABETA'
+                 , 'TAU_ABETA']
 
-    X_AV45_ONLY_train = mci_df_train[av45_cols].as_matrix()
-    X_AV45_ONLY_test = mci_df_test[av45_cols].as_matrix()
+    X_DATA_ONLY_train = mci_df_train[DATA_cols].as_matrix()
+    X_DATA_ONLY_test = mci_df_test[DATA_cols].as_matrix()
 
     FPRDict = {}
     TPRDict = {}
@@ -86,9 +86,9 @@ def main():
     ThreshDict_Test = {}
     AUCDict_Test = {}
 
-    itemList = [dict(X_train=X_AV45_ONLY_train, Y_train=Y_train, X_test=X_AV45_ONLY_test, Y_test=Y_test, analysisName='AV45_ONLY', analysis_cols=av45_cols, all_list=av45_cols,
-                     featureImpFileName='AV45_ONLY_FEATURE_IMP.png',
-                     specificitySensitivityFile='AV45_ONLY_SensSpec.csv', specificitySensitivityFile_test='AV45_ONLY_SensSpec_testSet.csv'),
+    itemList = [dict(X_train=X_DATA_ONLY_train, Y_train=Y_train, X_test=X_DATA_ONLY_test, Y_test=Y_test, analysisName='DATA_ANALYSIS', analysis_cols=DATA_cols, all_list=DATA_cols,
+                     featureImpFileName='CSF_ONLY_FEATURE_IMP.png',
+                     specificitySensitivityFile='CSF_ONLY_SensSpec.csv', specificitySensitivityFile_test='CSF_ONLY_SensSpec_testSet.csv'),
                 ]
 
     pool = Pool(processes=6)
@@ -108,10 +108,10 @@ def main():
 
     plt.figure()
 
-    plt.plot(FPRDict['AV45_ONLY'], TPRDict['AV45_ONLY'], 'b', alpha=0.5, lw = 2,
-             label='ROC curve  - Validation {0} (area = {1:0.2f})'.format('AV45', AUCDict['AV45_ONLY']))
-    plt.plot(FPRDict_Test['AV45_ONLY'], TPRDict_Test['AV45_ONLY'], 'r', alpha=0.5, lw = 2,
-             label='ROC curve - Test {0} (area = {1:0.2f})'.format('AV45', AUCDict_Test['AV45_ONLY']))
+    plt.plot(FPRDict['DATA_ANALYSIS'], TPRDict['DATA_ANALYSIS'], 'b', alpha=0.5, lw = 2,
+             label='ROC curve  - Validation {0} (area = {1:0.2f})'.format('CSF', AUCDict['DATA_ANALYSIS']))
+    plt.plot(FPRDict_Test['DATA_ANALYSIS'], TPRDict_Test['DATA_ANALYSIS'], 'r', alpha=0.5, lw = 2,
+             label='ROC curve - Test {0} (area = {1:0.2f})'.format('CSF', AUCDict_Test['DATA_ANALYSIS']))
     plt.plot([0, 1], [0, 1], 'k--')
     plt.xlim([-0.01, 1.01])
     plt.ylim([-0.01, 1.01])
