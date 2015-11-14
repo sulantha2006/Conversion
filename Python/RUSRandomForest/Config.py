@@ -31,5 +31,5 @@ xticks_dict = dict(Age_bl='Age',
                    FDG_region3='FDG OFC',
                    FDG_region4='FDG Piriform C.',
                    FDG_region5='FDG Hippocampus',
-                   AV45_SUVR_R1='Frontal Gyrus',AV45_SUVR_R2='Angular Gyrus',AV45_SUVR_R3='PCC',AV45_SUVR_R4='Frontal Cortex',AV45_SUVR_R5='Precuneus',
-                   AV45_SUVR_R6='Temp/Parietal',AV45_SUVR_R7='Temporal Lobe',AV45_SUVR_R8='Puteman',AV45_SUVR_R9='NA',AV45_GLOBAL_SUVR='AV45 Global SUVR')
+                   AV45_SUVR_R1='Mid Frontal Sulci (BA 10)',AV45_SUVR_R2='Angular Gyrus',AV45_SUVR_R3='PCC',AV45_SUVR_R4='Orbitofrontal Cortex',AV45_SUVR_R5='Precuneus',
+                   AV45_SUVR_R6='Temporal Occipital Jnc',AV45_SUVR_R7='Mid Temporal Sulci',AV45_SUVR_R8='Putamen',AV45_SUVR_R9='NA',AV45_GLOBAL_SUVR='AV45 Global SUVR')
